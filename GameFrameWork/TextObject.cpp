@@ -65,7 +65,7 @@ void TextObject::setMessage(std::string str)
 void TextObject::draw()
 {
     SDL_Surface *text;
-    SDL_Color text_color = {0, 0, 255};
+    SDL_Color text_color = {255, 0, 0};
    
     SDL_Renderer *render=this->getContainer().getRenderer();
     TTF_Font * font=this->getContainer().getFont();

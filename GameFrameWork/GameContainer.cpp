@@ -50,7 +50,7 @@ GameContainer::GameContainer():_frameRate((unsigned int)(-1)),
       exit(10);
     }
     Mix_AllocateChannels(2);
-    this->_music = Mix_LoadMUS(STR(RESOURCES)"/sfx/RainbowRush_loop.mp3");
+    this->_music = Mix_LoadMUS(STR(RESOURCES)"/sfx/OverdriveSexMachine.mp3");
     
     if(this->_screen==NULL 
          || this->_background==NULL 
