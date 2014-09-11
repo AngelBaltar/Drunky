@@ -30,7 +30,7 @@ GameContainer::GameContainer():_frameRate((unsigned int)(-1)),
                                 
 {
     
-    this->_screen = SDL_CreateWindow("Miner",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
+    this->_screen = SDL_CreateWindow("Drunky",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
                             755, 600, SDL_WINDOW_SHOWN);
     
     this->_render = SDL_CreateRenderer(this->_screen, -1,
