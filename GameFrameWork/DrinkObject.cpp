@@ -10,6 +10,7 @@
 #include "GameFrameWork/DrinkObject.h"
 #include "GameFrameWork/BoardObject.h"
 #include "utils/utils.h"
+#include "utils/Debug.h"
 
 SDL_Texture* DrinkObject::drinkImgs[6]={NULL,NULL,NULL,NULL,NULL,NULL};
 
@@ -193,10 +194,11 @@ void DrinkObject::handleEvent(SDL_Event *e)
         }
         case SDL_EventType::SDL_MOUSEMOTION:
         {
-            //DEBUG(std::cout<<"move:"<<e->motion.xrel<<" "<<e->motion.yrel<<std::endl;);
+            DEBUG(std::cout<<"move:"<<e->motion.xrel<<" "<<e->motion.yrel<<std::endl);
             if(this->isDragged() && !this->_draggedByNeighbor){
                 //Im being delta moving
-                
+                static int count=0;
+                count++;
                 int xrel=e->motion.xrel;
                 int yrel=e->motion.yrel;
 
@@ -211,21 +213,23 @@ void DrinkObject::handleEvent(SDL_Event *e)
                 //BECAUSE YOU CAN CHANGE DIRECTION
                 int n_x=(xrel<0)*(-1)+(xrel>0);
                 int n_y=(yrel<0)*(-1)+(yrel>0);
-                for(int i=-1;i<2;++i){
-                    for(int j=-1;j<2;++j){
-                        if(i==n_x && j==n_y){
-                            continue;
-                        }
-                        if(i==0 && j==0){
-                            continue;
-                        }
-                        GameObject * stencil=this->_board.getNeighbor(this,j,i);
-                        DrinkObject * stencilDrink=dynamic_cast<DrinkObject*>(stencil);
-                        if(stencilDrink){
-                            stencilDrink->_delta_x=0;
-                            stencilDrink->_delta_y=0;
-                            stencilDrink->_draggedByNeighbor=false;
-                            stencilDrink->setDragged(false);
+                if ((count&7)==0){
+                    for(int i=-1;i<2;++i){
+                        for(int j=-1;j<2;++j){
+                            if(i==n_x && j==n_y){
+                                continue;
+                            }
+                            if(i==0 && j==0){
+                                continue;
+                            }
+                            GameObject * stencil=this->_board.getNeighbor(this,j,i);
+                            DrinkObject * stencilDrink=dynamic_cast<DrinkObject*>(stencil);
+                            if(stencilDrink){
+                                stencilDrink->_delta_x=0;
+                                stencilDrink->_delta_y=0;
+                                stencilDrink->_draggedByNeighbor=false;
+                                stencilDrink->setDragged(false);
+                            }
                         }
                     }
                 }
